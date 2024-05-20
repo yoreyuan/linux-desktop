@@ -2,12 +2,11 @@ version: '1.0'
 
 services:
   linuxenv:
-    #image: linuxenv-gnome:latest
-    #image: linuxenv-xfce:latest
-    #image: linuxenv-deepin:latest
-    #image: linuxenv-lxqt:latest
-    image: linuxenv:latest
-    container_name: linuxenv-ubuntu
+    #image: linuxenv-kde:centos7.9.2009
+    #image: linuxenv-gnome:centos7.9.2009
+    #image: linuxenv-xfce:centos7.9.2009
+    image: linuxenv:centos7.9.2009
+    container_name: linuxenv-centos
     hostname: linuxenv
     user: root
     privileged: true
@@ -18,14 +17,16 @@ services:
     ports:
       - '3022:22'
       - '3388:3389'
+    command: "/usr/sbin/init"
     shm_size: 512m
+    #mem_limit: 16g
     volumes:
       #Maven
       - /d/dev_yore/mvn_repository:/opt/repository
       # code
       - /d/dev_yore:/opt/dev_yore
-    #extra_hosts:
-      #- "node01:172.22.80.1"
+    extra_hosts:
+      - "node01:172.22.80.1"
 
 networks:
   linuxenv_default:
